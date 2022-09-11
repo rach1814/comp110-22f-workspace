@@ -1,5 +1,5 @@
-"""EX02- wordle with one shot at guessing"""
-__author__ =  "730334012"
+"""EX02- wordle with one shot at guessing. """
+__author__ = "730334012"
 
 # white, green and yellow emojis
 WHITE_BOX: str = "\U00002B1C"
@@ -30,9 +30,10 @@ while i < len(secret_word):
         else:
             emojified += WHITE_BOX
     i += 1
-print(emojified)
 
 if user_guess == secret_word:
     print("Woo! You got it!")
 else:
     print("Not quite. Play again soon!")
+
+print(emojified)
