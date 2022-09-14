@@ -1,4 +1,4 @@
-"""EX02- wordle with one shot at guessing. """
+"""EX02- wordle with one shot at guessing."""
 __author__ = "730334012"
 
 # white, green and yellow emojis
