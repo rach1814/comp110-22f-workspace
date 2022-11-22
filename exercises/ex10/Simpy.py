@@ -75,7 +75,7 @@ class Simpy:
         """Produces a mask based on equality of items in a list"""
         result: list[bool] = []
         if isinstance(rhs, Simpy):
-            #assert len(self.values) == len(rhs.values)
+            assert len(self.values) == len(rhs.values)
             for item in range(len(self.values)):
                 if item == rhs.values[item]:
                     result.append(True)
