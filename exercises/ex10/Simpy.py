@@ -8,6 +8,7 @@ __author__ = "730334012"
 
 
 class Simpy:
+    """New object."""
     values: list[float]
 
     def __init__(self, values: list[float]):
@@ -18,12 +19,13 @@ class Simpy:
         """Converts Simpy object to str representation for Python."""
         return f"Simpy({self.values})"
 
-    def fill(self, value: float, fill_in: int ) -> None:
+    def fill(self, value: float, fill_in: int) -> None:
         """Fill a Simpy's values with a specific number of repeating values."""
-        while len(self.values) < fill_in:
+        self.values = []
+        for _ in range(fill_in):
             self.values.append(value)
 
-    def arange(self, start: float, stop: float, step: float = 1.0 ) -> None:
+    def arange(self, start: float, stop: float, step: float = 1.0) -> None:
         """Fills in the values attribute with a range of values."""
         assert step != 0.0
         i = start
@@ -72,12 +74,12 @@ class Simpy:
             return result
 
     def __eq__(self, rhs: Union[float, Simpy]) -> list[bool]:
-        """Produces a mask based on equality of items in a list"""
+        """Produces a mask based on equality of items in two lists."""
         result: list[bool] = []
         if isinstance(rhs, Simpy):
             assert len(self.values) == len(rhs.values)
             for item in range(len(self.values)):
-                if item == rhs.values[item]:
+                if self.values[item] == rhs.values[item]:
                     result.append(True)
                 else:
                     result.append(False)
@@ -85,16 +87,40 @@ class Simpy:
 
         if isinstance(rhs, float):
             for item in range(len(self.values)):
-                if item == rhs:
+                if self.values[item] == rhs:
+                    result.append(True)
+                else:
+                    result.append(False)
+            return result
+        
+    def __gt__(self, rhs: Union[float, Simpy]) -> list[bool]:
+        """Produces mask based on greater than relationship of items in two lists."""
+        result: list[bool] = []
+        if isinstance(rhs, Simpy):
+            assert len(self.values) == len(rhs.values)
+            for item in range(len(self.values)):
+                if self.values[item] > rhs.values[item]:
                     result.append(True)
                 else:
                     result.append(False)
             return result
 
+        if isinstance(rhs, float):
+            for item in range(len(self.values)):
+                if self.values[item] > rhs:
+                    result.append(True)
+                else:
+                    result.append(False)
+            return result
 
+    def __getitem__(self, rhs: Union[int, list[bool]]) -> Union[float, Simpy]:
+        """Adds ability to use subscription operator with Simpy objects."""
+        result = Simpy([])
+        if isinstance(rhs, int):
+            return self.values[rhs]
 
-
-
-
-
-    
+        if isinstance(rhs, list):
+            for item in range(len(self.values)):
+                if rhs[item] is True:
+                    result.values.append(self.values[item])
+            return result
